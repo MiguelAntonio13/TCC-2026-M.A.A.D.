@@ -7,6 +7,7 @@ export default function jogo(){
   const [rendaPassiva, setRendaPassiva] = useState(0)
 
   const [jogoCarregado, setJogoCarregado] = useState(false)
+  const [mostrarImagem,setMostrarImagem] = useState(false)
 
   function tocarSomDeClique(){
     const audio = new Audio('')
@@ -41,10 +42,22 @@ export default function jogo(){
       setPontos(pontos - custoDoItem)
       setPoderDeClique(poderDeClique + poderDoItem)
       setRendaPassiva(rendaPassiva + passivaItem)
+
+      setMostrarImagem(true)
+    setTimeout(()=>{
+      setMostrarImagem(false)
+    },2000)
     }else{
       alert("Você não tem Pizzas suficientes para comprar este item")
     }
   }
+
+  function reiniciarJogo(){
+    setPontos(0)
+    setPoderDeClique(1)
+    setRendaPassiva(0)
+  }
+
   const upgrades = [
     {
       id: 1,
@@ -112,6 +125,15 @@ export default function jogo(){
     // div main
   <div className="min-h-screen bg-lime-500 flex flex-col md:flex-row 
   text-white font-comic sans ">
+
+    <button onClick={reiniciarJogo} className="fixed top-4 left-4 bg-red-600 hover:bg-red-px-4 py-2 rounded-lg font-bold trasition ">
+      Reiniciar Rodízio
+    </button>
+
+    {mostrarImagem &&(
+      <img src="/leonardo2.png" className="fixed bottom-4 left-4 w-46"/>
+    )}
+
     {/* Lado Esquerdo da tela*/}
     <div className="flex-1 flex flex-col items-center justify-center
     p-10 border-slate-700">
